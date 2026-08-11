@@ -165,25 +165,6 @@
     .link-btn.accent:active { background: var(--surface-elevated); transform: translateY(0); }
     .link-btn.accent .btn-icon { color: var(--accent); }
 
-    .copied-toast {
-      position: absolute;
-      top: -32px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 4px 12px;
-      background: var(--text-primary);
-      color: #FCFCFC;
-      font: 400 10px/1 'IBM Plex Mono', monospace;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s;
-    }
-
-    .copied-toast.show { opacity: 1; }
-
     .products { margin-top: 36px; }
     .section-label { margin-bottom: 8px; }
 
@@ -293,15 +274,14 @@
         </svg>
       </a>
 
-      <a href="mailto:enterprise@cognition.ai" class="link-btn accent" id="email-btn">
-        <span class="copied-toast" id="copied-toast">Copied to clipboard!</span>
+      <a href="https://cognition.com/contact" class="link-btn accent" target="_blank" rel="noopener">
         <span class="btn-icon">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="5" width="14" height="10" rx="2"></rect>
             <path d="M3 7l7 5 7-5"></path>
           </svg>
         </span>
-        Email enterprise@cognition.ai
+        Get in contact
         <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M6 4l4 4-4 4"></path>
         </svg>
@@ -395,18 +375,6 @@
         <img class="footer-logo" src="assets/logos/cognition-lockup.svg" alt="Cognition">
       </a>
     </footer>
-
-    <script>
-      document.getElementById('email-btn').addEventListener('click', function() {
-        if (navigator.clipboard) {
-          navigator.clipboard.writeText('enterprise@cognition.ai');
-          var toast = document.getElementById('copied-toast');
-          toast.classList.add('show');
-          setTimeout(function() { toast.classList.remove('show'); }, 2000);
-        }
-      });
-
-    </script>
 
   </div>
 
