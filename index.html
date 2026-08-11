@@ -52,7 +52,7 @@
       z-index: 0;
       pointer-events: none;
       background:
-        linear-gradient(to right, transparent 0 32%, var(--surface) 42% 58%, transparent 68%),
+        linear-gradient(to right, transparent 0 25%, var(--surface) 34% 66%, transparent 75%),
         url('assets/patterns/cognition-motif-left.png') left 10% / min(42vw, 500px) auto no-repeat,
         url('assets/patterns/cognition-motif-right.png') right 32% / min(42vw, 500px) auto no-repeat;
       opacity: 0.42;
@@ -246,7 +246,8 @@
       .links, .products { gap: 8px; }
       .link-btn { min-height: 52px; padding: 14px; }
       .products { margin-top: 26px; }
-      .footer { gap: 16px; margin-top: 32px; padding-bottom: 0; }
+      body::after { background: none; }
+      .footer { gap: 16px; margin-top: 96px; padding-bottom: 0; }
     }
 
     @media (min-width: 700px) {
