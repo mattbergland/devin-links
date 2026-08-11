@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Devin by Cognition</title>
+  <meta name="description" content="Devin — the AI software engineer by Cognition. Get started, explore docs, or talk to our team.">
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --surface: #ffffff;
+      --surface-elevated: #f7f7f8;
+      --border: #e5e5e7;
+      --border-hover: #c5c5c8;
+      --text-primary: #191919;
+      --text-secondary: #6e6e73;
+      --accent: #317CFF;
+      --accent-hover: #2563db;
+      --accent-subtle: rgba(49, 124, 255, 0.06);
+      --radius-btn: 14px;
+      --radius-card: 20px;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--surface);
+      color: var(--text-primary);
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    /* Subtle top-edge gradient line */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, var(--accent) 50%, transparent 100%);
+      opacity: 0.5;
+      z-index: 100;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 480px;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100dvh;
+    }
+
+    /* ---- Header / Identity ---- */
+    .header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: clamp(48px, 12vh, 80px);
+      padding-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+    }
+
+    .hero-logo {
+      display: block;
+      width: min(260px, 70vw);
+      height: auto;
+      margin-bottom: 8px;
+    }
+
+    .header .tagline {
+      font-size: 15px;
+      color: var(--text-secondary);
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
+    /* ---- Links / Buttons ---- */
+    .links {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      opacity: 0;
+      animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+    }
+
+    .link-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 16px 24px;
+      border-radius: var(--radius-btn);
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .link-btn .btn-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .link-btn .btn-icon svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .link-btn .arrow {
+      margin-left: auto;
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .link-btn:hover .arrow {
+      opacity: 0.5;
+      transform: translateX(0);
+    }
+
+    /* Primary - filled */
+    .link-btn.primary {
+      background: var(--text-primary);
+      color: #ffffff;
+      border: none;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.06);
+    }
+    .link-btn.primary:hover {
+      background: #2a2a2a;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1), 0 8px 24px rgba(0,0,0,0.08);
+    }
+    .link-btn.primary:active {
+      transform: translateY(0);
+      background: #333;
+    }
+
+    /* Secondary - outlined */
+    .link-btn.secondary {
+      background: var(--surface);
+      color: var(--text-primary);
+      border: 1.5px solid var(--border);
+    }
+    .link-btn.secondary:hover {
+      border-color: var(--border-hover);
+      background: var(--surface-elevated);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .link-btn.secondary:active {
+      transform: translateY(0);
+      background: #f0f0f2;
+    }
+
+    /* Accent - blue tint */
+    .link-btn.accent {
+      background: var(--accent-subtle);
+      color: var(--accent);
+      border: 1.5px solid rgba(49, 124, 255, 0.15);
+      position: relative;
+    }
+    .link-btn.accent:hover {
+      background: rgba(49, 124, 255, 0.1);
+      border-color: rgba(49, 124, 255, 0.25);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(49, 124, 255, 0.08);
+    }
+    .link-btn.accent:active {
+      transform: translateY(0);
+      background: rgba(49, 124, 255, 0.14);
+    }
+
+    .copied-toast {
+      position: absolute;
+      top: -32px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--text-primary);
+      color: #fff;
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+    .copied-toast.show {
+      opacity: 1;
+    }
+
+    /* ---- Products Section ---- */
+    .products {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 32px;
+      opacity: 0;
+      animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
+    }
+
+    .section-label {
+      font-size: 13px;
+      color: var(--text-secondary);
+      font-weight: 500;
+      text-align: center;
+      letter-spacing: 0.01em;
+      margin-bottom: 4px;
+    }
+
+    /* ---- Footer ---- */
+    .footer {
+      margin-top: auto;
+      padding: 48px 0 max(32px, env(safe-area-inset-bottom, 24px));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      opacity: 0;
+      animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards;
+    }
+
+    .social-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .social-link {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      background: transparent;
+      border: 1.5px solid var(--border);
+      text-decoration: none;
+      transition: all 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .social-link:hover {
+      color: var(--text-primary);
+      border-color: var(--border-hover);
+      background: var(--surface-elevated);
+      transform: translateY(-2px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .social-link:active {
+      transform: translateY(0);
+    }
+    .social-link svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .footer-logo {
+      display: block;
+      width: 120px;
+      height: auto;
+      opacity: 0.45;
+      transition: opacity 0.2s;
+    }
+    .footer-logo:hover {
+      opacity: 0.7;
+    }
+
+    .guest-counter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 4px;
+      opacity: 0.5;
+    }
+    .guest-counter img {
+      height: 20px;
+      border-radius: 3px;
+    }
+
+    /* ---- Animations ---- */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Focus styles */
+    .link-btn:focus-visible,
+    .social-link:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* Small mobile */
+    @media (max-width: 380px) {
+      .page { padding: 0 16px; }
+      .link-btn { padding: 14px 20px; font-size: 14px; }
+      .header h1 { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Header -->
+    <div class="header">
+      <svg class="hero-logo" viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:#3969ca;}.cls-1,.cls-2,.cls-3,.cls-4{stroke-width:0px;}.cls-2{fill:#000;}.cls-3{fill:#21c19a;}.cls-4{fill:#0294de;}</style></defs><path class="cls-2" d="M390.65,198.91c0,23.59-15.2,47.19-46,47.19h-28.05v-91.75h28.84c30.15,0,45.22,20.97,45.22,44.56ZM378.86,199.56c0-18.48-11.27-35.13-34.08-35.13h-16.91v71.56h16.65c22.94,0,34.34-17.96,34.34-36.44Z"></path><path class="cls-2" d="M409.19,215.68c.39,14.94,9.31,22.15,20.71,22.15,8.78,0,15.86-4.32,17.69-12.32h10.62c-2.88,15.07-15.86,22.02-28.84,22.02-15.86,0-30.8-10.88-30.8-34.6s15.07-34.34,30.93-34.34,28.97,10.22,28.97,31.98v5.11h-49.28ZM409.45,206.9h38.14c0-11.53-7.6-18.87-18.35-18.87-9.57,0-18.35,5.77-19.79,18.87Z"></path><path class="cls-2" d="M520.34,179.77l-24.9,66.32h-11.14l-24.9-66.32h11.8l18.87,54.39,18.87-54.39h11.4Z"></path><path class="cls-2" d="M539.05,164.83h-12.19v-13.11h12.19v13.11ZM538.39,179.77h-10.88v66.32h10.88v-66.32Z"></path><path class="cls-2" d="M607.01,201.14v44.96h-10.88v-43.91c0-7.21-3.54-13.76-13.24-13.76-10.88,0-19.27,8.26-19.27,23.72v33.95h-10.88v-66.32h10.75v11.53c3.8-7.21,10.49-12.71,21.63-12.71,13.63,0,21.89,8.13,21.89,22.54Z"></path><path class="cls-3" d="M217.92,189.77c3.64-2.1,8.17-2.1,11.81,0l9.43,5.45c.3.18.63.3.95.39.07.02.14.04.21.06.32.08.65.12.98.13.02,0,.03,0,.05,0,.04,0,.07-.01.11-.01.31,0,.61-.05.91-.12.05-.01.1-.02.16-.03.32-.09.63-.22.92-.38.03-.02.06-.02.09-.04l18.86-10.89c1.35-.78,2.18-2.22,2.18-3.78v-21.78c0-1.56-.83-3-2.18-3.78l-18.86-10.89c-1.35-.78-3.02-.78-4.37,0l-18.86,10.89s-.05.04-.08.06c-.29.18-.56.38-.8.61-.04.04-.07.08-.1.11-.21.22-.4.47-.56.73-.03.04-.06.08-.08.13-.16.29-.29.59-.38.91-.02.07-.04.14-.05.21-.08.33-.14.67-.14,1.02v10.89c0,4.21-2.26,8.12-5.9,10.23-3.64,2.1-8.17,2.1-11.81,0l-9.43-5.45c-.3-.18-.63-.3-.95-.39-.07-.02-.14-.04-.21-.06-.32-.08-.65-.12-.98-.13-.05,0-.1,0-.15,0-.31,0-.62.05-.92.12-.05.01-.1.02-.15.03-.32.09-.63.22-.93.38-.03.02-.06.02-.09.04l-18.86,10.89c-1.35.78-2.18,2.22-2.18,3.78v21.78c0,1.56.83,3,2.18,3.78l18.86,10.89s.06.02.09.04c.3.16.61.29.93.38.05.01.1.02.15.03.3.07.6.11.91.12.04,0,.07.01.11.01.02,0,.03,0,.05,0,.33,0,.66-.05.98-.13.07-.02.14-.04.21-.06.33-.1.65-.22.95-.39l9.43-5.45c3.64-2.1,8.17-2.1,11.81,0,3.64,2.1,5.9,6.02,5.9,10.23v10.89c0,.35.06.69.14,1.02.02.07.03.14.05.21.09.32.22.63.38.91.02.04.06.08.08.13.16.26.35.51.56.73.04.04.07.08.1.11.24.23.51.44.8.61.03.02.05.04.08.06l18.86,10.89c.68.39,1.43.59,2.18.59s1.51-.2,2.18-.59l18.86-10.89c1.35-.78,2.18-2.22,2.18-3.78v-21.78c0-1.56-.83-3-2.18-3.78l-18.86-10.89s-.06-.02-.09-.04c-.3-.16-.61-.29-.93-.38-.05-.01-.1-.02-.15-.03-.3-.07-.61-.11-.92-.12-.05,0-.09,0-.14,0-.33,0-.66.05-.99.13-.07.02-.13.04-.2.06-.33.1-.65.22-.95.39l-9.43,5.45c-3.64,2.1-8.17,2.1-11.81,0-3.64-2.1-5.9-6.02-5.9-10.23s2.26-8.12,5.9-10.23Z"></path><path class="cls-1" d="M115.18,184.33l18.86,10.89c.68.39,1.43.59,2.18.59s1.51-.2,2.18-.59l18.86-10.89s.05-.04.08-.06c.29-.18.56-.38.8-.61.04-.04.07-.08.1-.11.21-.22.4-.47.56-.73.03-.04.06-.08.08-.13.16-.29.29-.59.38-.91.02-.07.04-.14.05-.21.08-.33.14-.67.14-1.02v-10.89c0-4.2,2.26-8.12,5.9-10.23,3.64-2.1,8.17-2.1,11.81,0l9.43,5.45c.3.18.63.3.95.39.07.02.14.04.21.06.32.08.65.12.98.13.02,0,.03,0,.05,0,.04,0,.07-.01.11-.01.31,0,.61-.05.91-.12.05-.01.1-.02.15-.03.32-.09.63-.22.93-.38.03-.02.06-.02.09-.04l18.86-10.89c1.35-.78,2.18-2.22,2.18-3.78v-21.78c0-1.56-.83-3-2.18-3.78l-18.86-10.89c-1.35-.78-3.02-.78-4.37,0l-18.86,10.89s-.05.04-.08.06c-.29.18-.56.38-.8.61-.04.04-.07.08-.1.11-.21.22-.4.47-.56.73-.03.04-.06.08-.08.13-.16.29-.29.59-.38.91-.02.07-.04.14-.05.21-.08.33-.14.67-.14,1.02v10.89c0,4.21-2.26,8.12-5.9,10.23-3.64,2.1-8.17,2.1-11.81,0l-9.43-5.45c-.3-.18-.63-.3-.95-.39-.07-.02-.14-.04-.2-.06-.32-.08-.65-.12-.98-.13-.05,0-.1,0-.15,0-.31,0-.61.05-.91.12-.05.01-.1.02-.15.03-.32.09-.63.22-.93.38-.03.02-.06.02-.09.04l-18.86,10.89c-1.35.78-2.18,2.22-2.18,3.78v21.78c0,1.56.83,3,2.18,3.78Z"></path><path class="cls-4" d="M209.84,246.02l-18.86-10.89s-.06-.02-.09-.04c-.3-.16-.61-.29-.93-.38-.05-.01-.1-.02-.15-.03-.3-.07-.61-.11-.91-.12-.05,0-.1,0-.15,0-.33,0-.66.05-.98.13-.07.02-.13.04-.2.06-.33.1-.65.22-.96.39l-9.43,5.45c-3.64,2.1-8.16,2.1-11.8,0-3.64-2.1-5.9-6.02-5.9-10.23v-10.89c0-.35-.06-.69-.14-1.02-.02-.07-.03-.14-.05-.21-.09-.32-.22-.63-.38-.91-.02-.04-.06-.08-.08-.13-.16-.26-.35-.51-.56-.73-.04-.04-.07-.08-.1-.11-.24-.23-.51-.44-.8-.61-.03-.02-.05-.04-.08-.06l-18.86-10.89c-1.35-.78-3.02-.78-4.37,0l-18.86,10.89c-1.35.78-2.18,2.22-2.18,3.78v21.78c0,1.56.83,3,2.18,3.78l18.86,10.89s.06.02.09.04c.3.16.6.29.92.38.05.01.11.02.16.03.3.07.6.11.9.12.04,0,.07.01.11.01.02,0,.03,0,.05,0,.33,0,.65-.05.98-.13.07-.02.14-.04.21-.06.33-.1.65-.22.95-.39l9.43-5.45c3.64-2.1,8.17-2.1,11.81,0,3.64,2.1,5.9,6.02,5.9,10.23v10.89c0,.35.06.69.14,1.02.02.07.03.14.05.21.09.32.22.63.38.91.02.04.06.08.08.13.16.26.35.51.56.73.04.04.07.08.1.11.24.23.51.44.8.61.03.02.05.04.08.06l18.86,10.89c.68.39,1.43.59,2.18.59s1.51-.2,2.18-.59l18.86-10.89c1.35-.78,2.18-2.22,2.18-3.78v-21.78c0-1.56-.83-3-2.18-3.78Z"></path></svg>
+      <p class="tagline">The AI software engineer</p>
+    </div>
+
+    <!-- Link Buttons -->
+    <div class="links">
+
+      <a href="https://app.devin.ai/" class="link-btn primary" target="_blank" rel="noopener">
+        <span class="btn-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 10h11M10 6l4 4-4 4"></path>
+          </svg>
+        </span>
+        Try Devin
+        <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 4l4 4-4 4"></path>
+        </svg>
+      </a>
+
+      <a href="https://devin.ai/customers" class="link-btn secondary" target="_blank" rel="noopener">
+        <span class="btn-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 3v14"></path>
+            <path d="M5 8l5-5 5 5"></path>
+            <path d="M4 17h12"></path>
+          </svg>
+        </span>
+        Learn More
+        <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 4l4 4-4 4"></path>
+        </svg>
+      </a>
+
+      <a href="mailto:enterprise@cognition.ai" class="link-btn accent" id="email-btn">
+        <span class="copied-toast" id="copied-toast">Copied to clipboard!</span>
+        <span class="btn-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="5" width="14" height="10" rx="2"></rect>
+            <path d="M3 7l7 5 7-5"></path>
+          </svg>
+        </span>
+        Email enterprise@cognition.ai
+        <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 4l4 4-4 4"></path>
+        </svg>
+      </a>
+
+    </div>
+
+    <!-- Speaking Session -->
+    <div class="products">
+      <a href="https://luma.com/devin-pizza" class="link-btn accent" target="_blank" rel="noopener">
+        <span class="btn-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 8l7-4.5L17 8l-7 4.5z"></path>
+            <path d="M3 8c0 4 3.13 8.5 7 8.5s7-4.5 7-8.5"></path>
+            <circle cx="7.5" cy="8" r="0.6" fill="currentColor" stroke="none"></circle>
+            <circle cx="10.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"></circle>
+            <circle cx="11" cy="9.5" r="0.6" fill="currentColor" stroke="none"></circle>
+          </svg>
+        </span>
+        AI Engineer Rooftop Pizza Party — Register
+        <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 4l4 4-4 4"></path>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Additional Products -->
+    <div class="products">
+      <p class="section-label">Check out our additional products:</p>
+
+      <a href="https://deepwiki.com/" class="link-btn secondary" target="_blank" rel="noopener">
+        <span class="btn-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 3h12a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path>
+            <path d="M7 7h6M7 10h6M7 13h4"></path>
+          </svg>
+        </span>
+        DeepWiki
+        <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 4l4 4-4 4"></path>
+        </svg>
+      </a>
+
+      <a href="https://devinreview.com/" class="link-btn secondary" target="_blank" rel="noopener">
+        <span class="btn-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 2l2.3 4.7 5.2.8-3.8 3.7.9 5.3L9 14l-4.6 2.5.9-5.3L1.5 7.5l5.2-.8z"></path>
+          </svg>
+        </span>
+        Devin Review
+        <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 4l4 4-4 4"></path>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="social-links">
+
+        <!-- X / Twitter -->
+        <a href="https://x.com/cognition" class="social-link" target="_blank" rel="noopener" aria-label="Follow on X">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+          </svg>
+        </a>
+
+        <!-- LinkedIn -->
+        <a href="https://www.linkedin.com/company/cognition-ai-labs/" class="social-link" target="_blank" rel="noopener" aria-label="Follow on LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path>
+          </svg>
+        </a>
+
+        <!-- YouTube -->
+        <a href="https://www.youtube.com/@CognitionAI" class="social-link" target="_blank" rel="noopener" aria-label="Watch on YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path>
+          </svg>
+        </a>
+
+        <!-- Devin Docs -->
+        <a href="https://docs.devin.ai/" class="social-link" target="_blank" rel="noopener" aria-label="Devin Docs">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            <path d="M9 7h6M9 11h6"></path>
+          </svg>
+        </a>
+
+      </div>
+      <a href="https://cognition.ai/" class="footer-logo" target="_blank" rel="noopener" aria-label="Cognition AI">
+        <svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg"><defs><style>.cog-1{fill:#000;stroke-width:0px;}</style></defs><path class="cog-1" d="M271,186.52c-21.77,0-33.26-17.68-33.26-37.15s11.59-36.25,33.96-36.25c15.58,0,26.96,8.09,28.66,23.67h-9.09c-1.2-9.79-9.09-15.68-19.97-15.68-16.48,0-24.77,13.38-24.77,28.16s8.49,29.16,25.27,29.16c11.19,0,19.67-6.19,19.97-18.28h8.99c-.3,16.28-13.28,26.37-29.76,26.37Z"></path><path class="cog-1" d="M354.71,159.56c0,16.28-10.09,26.27-24.07,26.27s-23.97-9.99-23.97-26.27,10.09-26.27,23.97-26.27,24.07,10.09,24.07,26.27ZM330.55,140.88c-9.19,0-15.38,7.19-15.38,18.68,0,12.18,6.89,18.68,15.68,18.68s15.38-7.19,15.38-18.68c0-12.18-6.89-18.68-15.68-18.68Z"></path><path class="cog-1" d="M407.39,181.63c0,15.98-10.09,23.37-23.27,23.37-10.49,0-21.47-4.69-23.27-17.78h8.29c.8,5.79,5.39,10.79,15.08,10.79,8.99,0,15.18-4.29,15.18-15.98v-8.49c-3.5,6.89-10.29,9.09-16.78,9.09-12.48,0-22.67-8.19-22.67-24.47s10.09-24.87,22.37-24.87c6.59,0,13.38,2.4,17.08,8.79v-7.89h7.99v47.44ZM398.8,157.96c0-12.18-7.09-17.48-15.08-17.48-8.69,0-15.68,5.99-15.68,17.48s7.09,17.38,15.68,17.38c7.99,0,15.08-5.19,15.08-17.38Z"></path><path class="cog-1" d="M459.55,150.47v34.26h-8.29v-33.46c0-5.49-2.7-10.49-10.09-10.49-8.29,0-14.68,6.29-14.68,18.08v25.87h-8.29v-50.53h8.19v8.79c2.9-5.49,7.99-9.69,16.48-9.69,10.39,0,16.68,6.19,16.68,17.18Z"></path><path class="cog-1" d="M478.99,122.81h-9.29v-9.99h9.29v9.99ZM478.49,134.19h-8.29v50.53h8.29v-50.53Z"></path><path class="cog-1" d="M514.45,184.73h-7.29c-7.29,0-14.08-2.2-14.08-13.98v-29.16h-9.69v-7.39h9.69v-13.48l8.29-2.3v15.78h11.88v7.39h-11.88v28.66c0,4.19.9,7.09,6.69,7.09h6.39v7.39Z"></path><path class="cog-1" d="M529.11,122.81h-9.29v-9.99h9.29v9.99ZM528.61,134.19h-8.29v50.53h8.29v-50.53Z"></path><path class="cog-1" d="M584.49,159.56c0,16.28-10.09,26.27-24.07,26.27s-23.97-9.99-23.97-26.27,10.09-26.27,23.97-26.27,24.07,10.09,24.07,26.27ZM560.33,140.88c-9.19,0-15.38,7.19-15.38,18.68,0,12.18,6.89,18.68,15.68,18.68s15.38-7.19,15.38-18.68c0-12.18-6.89-18.68-15.68-18.68Z"></path><path class="cog-1" d="M633.9,150.47v34.26h-8.29v-33.46c0-5.49-2.7-10.49-10.09-10.49-8.29,0-14.68,6.29-14.68,18.08v25.87h-8.29v-50.53h8.19v8.79c2.9-5.49,7.99-9.69,16.48-9.69,10.39,0,16.68,6.19,16.68,17.18Z"></path><path class="cog-1" d="M166.05,142.21c2.78-1.6,6.22-1.6,9,0l7.19,4.15c.23.13.48.23.73.3.05.02.1.03.16.04.25.06.5.09.75.1.01,0,.02,0,.04,0,.03,0,.05,0,.08-.01.23,0,.46-.04.69-.09.04,0,.08-.01.12-.03.24-.07.48-.17.7-.29.02-.01.05-.02.07-.03l14.37-8.3c1.03-.59,1.66-1.69,1.66-2.88v-16.6c0-1.19-.63-2.29-1.66-2.88l-14.37-8.3c-1.03-.59-2.3-.59-3.33,0l-14.37,8.3s-.04.03-.06.04c-.22.13-.43.29-.61.47-.03.03-.05.06-.08.09-.16.17-.3.36-.43.56-.02.03-.04.06-.06.1-.12.22-.22.45-.29.7-.02.05-.03.1-.04.16-.06.25-.1.51-.1.78v8.3c0,3.2-1.72,6.19-4.5,7.79-2.78,1.6-6.22,1.6-9,0l-7.19-4.15c-.23-.13-.48-.23-.73-.3-.05-.02-.1-.03-.16-.04-.25-.06-.5-.09-.75-.1-.04,0-.07,0-.11,0-.24,0-.47.04-.7.09-.04,0-.08.01-.11.02-.25.07-.48.17-.71.29-.02.01-.05.02-.07.03l-14.37,8.3c-1.03.59-1.66,1.69-1.66,2.88v16.6c0,1.19.63,2.29,1.66,2.88l14.37,8.3s.05.02.07.03c.23.12.46.22.71.29.04.01.08.02.12.03.23.05.46.08.69.09.03,0,.05.01.08.01.01,0,.02,0,.04,0,.25,0,.5-.04.75-.1.05-.01.1-.03.16-.04.25-.07.49-.17.73-.3l7.19-4.15c2.78-1.6,6.22-1.6,9,0,2.77,1.6,4.5,4.59,4.5,7.79v8.3c0,.27.04.53.1.78.01.05.02.11.04.16.07.24.17.48.29.7.02.03.04.06.06.1.12.2.26.39.43.56.03.03.05.06.08.09.18.18.39.33.61.47.02.01.04.03.06.04l14.37,8.3c.51.3,1.09.45,1.66.45s1.15-.15,1.66-.45l14.37-8.3c1.03-.59,1.66-1.69,1.66-2.88v-16.6c0-1.19-.63-2.29-1.66-2.88l-14.37-8.3s-.05-.02-.07-.03c-.23-.12-.46-.22-.71-.29-.04-.01-.07-.01-.11-.02-.23-.06-.47-.09-.7-.09-.04,0-.07,0-.11,0-.25,0-.5.04-.75.1-.05.01-.1.03-.15.04-.25.07-.49.17-.73.3l-7.19,4.15c-2.77,1.6-6.22,1.6-9,0-2.77-1.6-4.5-4.59-4.5-7.79s1.72-6.19,4.5-7.79Z"></path><path class="cog-1" d="M87.76,138.06l14.37,8.3c.51.3,1.09.45,1.66.45s1.15-.15,1.66-.45l14.37-8.3s.04-.03.06-.04c.22-.13.43-.29.61-.47.03-.03.05-.06.08-.09.16-.17.3-.36.43-.56.02-.03.04-.06.06-.1.12-.22.22-.45.29-.7.02-.05.03-.1.04-.16.06-.25.1-.51.1-.78v-8.3c0-3.2,1.72-6.19,4.5-7.79s6.22-1.6,9,0l7.19,4.15c.23.13.48.23.73.3.05.02.1.03.16.04.25.06.49.09.75.1.01,0,.02,0,.04,0,.03,0,.05-.01.08-.01.23,0,.46-.04.69-.09.04,0,.08-.01.12-.03.25-.07.48-.17.71-.29.02-.01.05-.02.07-.03l14.37-8.3c1.03-.59,1.66-1.69,1.66-2.88v-16.6c0-1.19-.63-2.29-1.66-2.88l-14.37-8.3c-1.03-.59-2.3-.59-3.33,0l-14.37,8.3s-.04.03-.06.04c-.22.13-.43.29-.61.47-.03.03-.05.06-.08.09-.16.17-.3.36-.43.56-.02.03-.04.06-.06.1-.12.22-.22.45-.29.7-.02.05-.03.1-.04.16-.06.25-.1.51-.1.78v8.3c0,3.2-1.72,6.19-4.5,7.79-2.77,1.6-6.22,1.6-9,0l-7.19-4.15c-.23-.13-.48-.23-.73-.3-.05-.02-.1-.03-.16-.04-.25-.06-.5-.09-.75-.1-.04,0-.07,0-.11,0-.24,0-.47.04-.7.09-.04,0-.08.01-.11.02-.25.07-.48.17-.71.29-.02.01-.05.02-.07.03l-14.37,8.3c-1.03.59-1.66,1.69-1.66,2.88v16.6c0,1.19.63,2.29,1.66,2.88Z"></path><path class="cog-1" d="M159.89,185.06l-14.37-8.3s-.05-.02-.07-.03c-.23-.12-.46-.22-.71-.29-.04-.01-.08-.02-.12-.03-.23-.05-.46-.09-.7-.09-.04,0-.07,0-.11,0-.25,0-.5.04-.75.1-.05.01-.1.03-.15.04-.25.07-.49.17-.73.3l-7.19,4.15c-2.77,1.6-6.22,1.6-8.99,0-2.78-1.6-4.5-4.59-4.5-7.79v-8.3c0-.27-.04-.53-.1-.78-.01-.05-.02-.11-.04-.16-.07-.24-.17-.48-.29-.7-.02-.03-.04-.06-.06-.1-.12-.2-.26-.39-.43-.56-.03-.03-.05-.06-.08-.09-.18-.18-.39-.33-.61-.47-.02-.01-.04-.03-.06-.04l-14.37-8.3c-1.03-.59-2.3-.59-3.33,0l-14.37,8.3c-1.03.59-1.66,1.69-1.66,2.88v16.6c0,1.19.63,2.29,1.66,2.88l14.37,8.3s.05.02.07.03c.23.12.46.22.7.29.04.01.08.02.12.03.23.05.45.08.69.09.03,0,.06.01.08.01.01,0,.02,0,.04,0,.25,0,.5-.04.74-.1.05-.01.11-.03.16-.04.25-.07.49-.17.73-.3l7.19-4.15c2.78-1.6,6.22-1.6,9,0,2.77,1.6,4.5,4.59,4.5,7.79v8.3c0,.27.04.53.1.78.01.05.02.11.04.16.07.24.17.48.29.7.02.03.04.06.06.1.12.2.26.39.43.56.03.03.05.06.08.09.18.18.39.33.61.47.02.01.04.03.06.04l14.37,8.3c.51.3,1.09.45,1.66.45s1.15-.15,1.66-.45l14.37-8.3c1.03-.59,1.66-1.69,1.66-2.88v-16.6c0-1.19-.63-2.29-1.66-2.88Z"></path></svg>
+      </a>
+    </footer>
+
+    <script>
+      document.getElementById('email-btn').addEventListener('click', function() {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText('enterprise@cognition.ai');
+          var toast = document.getElementById('copied-toast');
+          toast.classList.add('show');
+          setTimeout(function() { toast.classList.remove('show'); }, 2000);
+        }
+      });
+
+    </script>
+
+  </div>
+
+
+</body></html>
