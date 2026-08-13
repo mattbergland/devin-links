@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Devin for Government by Cognition</title>
+  <meta name="description" content="Devin — the AI software engineer by Cognition. For federal agencies and the public sector.">
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'NB International';
+      src: url('assets/fonts/NBInternationalPro-Reg.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --surface: #F7F6F5;
+      --surface-elevated: #FCFCFC;
+      --text-primary: #141414;
+      --text-secondary: rgba(20, 20, 20, 0.62);
+      --border: rgba(20, 20, 20, 0.18);
+      --border-hover: rgba(20, 20, 20, 0.42);
+      --accent: #2600FF;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      min-height: 100dvh;
+      overflow-x: hidden;
+      display: flex;
+      justify-content: center;
+      background: var(--surface);
+      color: var(--text-primary);
+      font-family: 'NB International', Arial, sans-serif;
+      position: relative;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(to right, transparent 0 25%, var(--surface) 34% 66%, transparent 75%),
+        url('assets/patterns/cognition-motif-left.png') left 10% / min(42vw, 500px) auto no-repeat,
+        url('assets/patterns/cognition-motif-right.png') right 32% / min(42vw, 500px) auto no-repeat;
+      opacity: 0.42;
+      -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 20%, transparent 63%);
+      mask-image: linear-gradient(to bottom, #000 0%, #000 20%, transparent 63%);
+    }
+
+    .page {
+      width: 100%;
+      max-width: 560px;
+      min-height: 0;
+      padding: 72px 28px 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+    }
+
+    .hero-logo {
+      display: block;
+      width: min(226px, 68vw);
+      height: auto;
+      margin-bottom: 18px;
+    }
+
+    .header .tagline,
+    .section-label {
+      color: var(--text-secondary);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      line-height: 1.5;
+      text-transform: uppercase;
+    }
+
+    .links,
+    .products {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      opacity: 0;
+      animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+    }
+
+    .link-btn {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+      width: 100%;
+      min-height: 58px;
+      padding: 17px 18px;
+      border: 1px solid var(--border);
+      border-radius: 0;
+      color: var(--text-primary);
+      font: 400 16px/1.2 'NB International', Arial, sans-serif;
+      text-decoration: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .link-btn .btn-icon {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .link-btn .btn-icon svg { width: 18px; height: 18px; }
+
+    .link-btn .arrow {
+      margin-left: auto;
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .link-btn:hover .arrow { opacity: 0.5; transform: translateX(0); }
+
+    .link-btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #FCFCFC;
+    }
+
+    .link-btn.primary:hover { background: var(--text-primary); border-color: var(--text-primary); transform: translateY(-2px); }
+    .link-btn.primary:active { background: var(--text-primary); transform: translateY(0); }
+
+    .link-btn.secondary,
+    .link-btn.accent { background: rgba(252, 252, 252, 0.78); }
+
+    .link-btn.secondary:hover,
+    .link-btn.accent:hover { background: var(--surface-elevated); border-color: var(--border-hover); transform: translateY(-2px); }
+    .link-btn.secondary:active,
+    .link-btn.accent:active { background: var(--surface-elevated); transform: translateY(0); }
+    .link-btn.accent .btn-icon { color: var(--accent); }
+
+    .products { margin-top: 36px; }
+    .section-label { margin-bottom: 8px; }
+
+    .footer {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+      margin-top: 56px;
+      padding: 0 0 max(8px, env(safe-area-inset-bottom, 8px));
+      opacity: 0;
+      animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards;
+    }
+
+    .social-links { display: flex; align-items: center; gap: 8px; }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 0;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .social-link:hover { color: var(--text-primary); background: var(--surface-elevated); border-color: var(--border-hover); transform: translateY(-2px); }
+    .social-link:active { transform: translateY(0); }
+    .social-link svg { width: 18px; height: 18px; }
+
+    .footer-logo { display: block; width: 136px; height: auto; opacity: 0.72; transition: opacity 0.2s; }
+    .footer-logo:hover { opacity: 1; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .link-btn:focus-visible,
+    .social-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    @media (max-width: 380px) {
+      .page { padding: 56px 18px 32px; }
+      .header { padding-bottom: 40px; }
+      .link-btn { min-height: 54px; padding: 15px 14px; font-size: 14px; }
+    }
+
+    @media (max-width: 600px) {
+      .page { padding: 44px 20px 20px; }
+      .header { padding-bottom: 32px; }
+      .hero-logo { width: min(210px, 68vw); margin-bottom: 14px; }
+      .links, .products { gap: 8px; }
+      .link-btn { min-height: 52px; padding: 14px; }
+      .products { margin-top: 26px; }
+      body::after { background: none; }
+      .footer { gap: 16px; margin-top: 96px; padding-bottom: 0; }
+    }
+
+    @media (min-width: 700px) {
+      .page { padding-top: 96px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Header -->
+    <div class="header">
+      <img class="hero-logo" src="assets/logos/devin-lockup.svg" alt="Devin by Cognition">
+      <p class="tagline">The AI software engineer</p>
+    </div>
+
+    <!-- Link Buttons -->
+    <div class="links">
+
+      <a href="https://app.devin.ai/" class="link-btn primary" target="_blank" rel="noopener">
+        <span class="btn-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 10h11M10 6l4 4-4 4"></path>
+          </svg>
+        </span>
+        Try Devin
+        <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 4l4 4-4 4"></path>
+        </svg>
+      </a>
+
+      <a href="https://devin.ai/government" class="link-btn secondary" target="_blank" rel="noopener">
+        <span class="btn-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 3v14"></path>
+            <path d="M5 8l5-5 5 5"></path>
+            <path d="M4 17h12"></path>
+          </svg>
+        </span>
+        Learn More
+        <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 4l4 4-4 4"></path>
+        </svg>
+      </a>
+
+      <a href="mailto:public.sector@cognition.ai" class="link-btn accent">
+        <span class="btn-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="5" width="14" height="10" rx="2"></rect>
+            <path d="M3 7l7 5 7-5"></path>
+          </svg>
+        </span>
+        Get in contact
+        <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 4l4 4-4 4"></path>
+        </svg>
+      </a>
+
+    </div>
+
+    <!-- Careers -->
+    <div class="products">
+      <a href="https://cognition.com/careers" class="link-btn accent" target="_blank" rel="noopener">
+        <span class="btn-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2.5" y="6" width="15" height="10.5" rx="1"></rect>
+            <path d="M7.5 6V4.5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1V6"></path>
+            <path d="M2.5 10.5h15"></path>
+          </svg>
+        </span>
+        Join the Cognition Team
+        <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 4l4 4-4 4"></path>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Additional Products -->
+    <div class="products">
+      <p class="section-label">Additional Resources:</p>
+
+      <a href="https://cognition.com/blog/devin-fedramp-high-in-process" class="link-btn secondary" target="_blank" rel="noopener">
+        <span class="btn-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 2.5l6 2.5v5c0 3.4-2.5 6.2-6 7.5-3.5-1.3-6-4.1-6-7.5V5z"></path>
+            <path d="M7.5 10l2 2 3.5-3.5"></path>
+          </svg>
+        </span>
+        Devin Is Now FedRAMP High In-Process
+        <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 4l4 4-4 4"></path>
+        </svg>
+      </a>
+
+      <a href="https://cognition.com/blog/how-devin-is-modernizing-cobol-at-fortune-500-companies?dcid=7802909e-68a1-4d60-93e7-c3c8014b488a&amp;utm_source=google&amp;utm_medium=cpc&amp;utm_campaign=Cognition_Brand_Search&amp;utm_term=cognition+ai" class="link-btn secondary" target="_blank" rel="noopener">
+        <span class="btn-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 3h9l3 3v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"></path>
+            <path d="M12.5 3v3.5H16"></path>
+            <path d="M7 11h6M7 14h4"></path>
+          </svg>
+        </span>
+        How Devin Is Modernizing COBOL
+        <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 4l4 4-4 4"></path>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="social-links">
+
+        <!-- X / Twitter -->
+        <a href="https://x.com/cognition" class="social-link" target="_blank" rel="noopener" aria-label="Follow on X">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+          </svg>
+        </a>
+
+        <!-- LinkedIn -->
+        <a href="https://www.linkedin.com/company/cognition-ai-labs/" class="social-link" target="_blank" rel="noopener" aria-label="Follow on LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path>
+          </svg>
+        </a>
+
+        <!-- YouTube -->
+        <a href="https://www.youtube.com/@CognitionAI" class="social-link" target="_blank" rel="noopener" aria-label="Watch on YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path>
+          </svg>
+        </a>
+
+        <!-- Devin Docs -->
+        <a href="https://docs.devin.ai/" class="social-link" target="_blank" rel="noopener" aria-label="Devin Docs">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            <path d="M9 7h6M9 11h6"></path>
+          </svg>
+        </a>
+
+      </div>
+      <a href="https://cognition.ai/" class="footer-logo" target="_blank" rel="noopener" aria-label="Cognition AI">
+        <img class="footer-logo" src="assets/logos/cognition-lockup.svg" alt="Cognition">
+      </a>
+    </footer>
+
+  </div>
+
+
+</body></html>
